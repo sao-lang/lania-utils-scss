@@ -1,0 +1,436 @@
+// 背景处理（包括复合属性）
+@mixin background($color: null, $image: null, $position: null, $repeat: null, $size: null, $attachment: null, $clip: null, $origin: null, $blend-mode: null, $background: null) {
+    // 如果传入了复合属性，则优先使用
+    @if $background != null {
+        background: $background;
+    } @else {
+        @if $color != null {
+            background-color: $color;
+        }
+        @if $image != null {
+            background-image: $image;
+        }
+        @if $position != null {
+            background-position: $position;
+        }
+        @if $repeat != null {
+            background-repeat: $repeat;
+        }
+        @if $size != null {
+            background-size: $size;
+        }
+        @if $attachment != null {
+            background-attachment: $attachment;
+        }
+        @if $clip != null {
+            background-clip: $clip;
+        }
+        @if $origin != null {
+            background-origin: $origin;
+        }
+        @if $blend-mode != null {
+            background-blend-mode: $blend-mode;
+        }
+    }
+}
+
+// 文本相关属性 Mixin
+@mixin text(
+    $color: null,
+    // 文字颜色
+    $font-size: null,
+    // 字体大小
+    $font-weight: null,
+    // 字体粗细
+    $font-style: null,
+    // 字体样式，例如 italic、normal
+    $font-family: null,
+    // 字体系列
+    $line-height: null,
+    // 行高
+    $text-align: null,
+    // 文本对齐
+    $text-decoration: null,
+    // 文本装饰
+    $text-transform: null,
+    // 文本变形
+    $letter-spacing: null,
+    // 字间距
+    $word-spacing: null,
+    // 词间距
+    $text-shadow: null,
+    // 文本阴影
+    $text-fill: null,
+    // 文字填充（实验性属性）
+    $text-stroke: null // 文字描边（实验性属性）
+) {
+    @if $color != null {
+        color: $color;
+    }
+    @if $font-size != null {
+        font-size: $font-size;
+    }
+    @if $font-weight != null {
+        font-weight: $font-weight;
+    }
+    @if $font-style != null {
+        font-style: $font-style;
+    }
+    @if $font-family != null {
+        font-family: $font-family;
+    }
+    @if $line-height != null {
+        line-height: $line-height;
+    }
+    @if $text-align != null {
+        text-align: $text-align;
+    }
+    @if $text-decoration != null {
+        text-decoration: $text-decoration;
+    }
+    @if $text-transform != null {
+        text-transform: $text-transform;
+    }
+    @if $letter-spacing != null {
+        letter-spacing: $letter-spacing;
+    }
+    @if $word-spacing != null {
+        word-spacing: $word-spacing;
+    }
+    @if $text-shadow != null {
+        text-shadow: $text-shadow;
+    }
+    @if $text-fill != null {
+        -webkit-text-fill-color: $text-fill; // 需要前缀
+    }
+    @if $text-stroke != null {
+        -webkit-text-stroke: $text-stroke; // 需要前缀
+    }
+}
+
+// 文本阴影
+@mixin text-shadow($offset-x: 0, $offset-y: 0, $blur-radius: 0, $color: rgba(0, 0, 0, 0.5)) {
+    text-shadow: $offset-x $offset-y $blur-radius $color;
+}
+
+// 文本装饰
+@mixin text-decoration($color: null, $line: solid, $style: underline) {
+    text-decoration: $style;
+    @if $color != null {
+        text-decoration-color: $color;
+    }
+    @if $line != null {
+        text-decoration-style: $line;
+    }
+}
+
+// 单独设置 padding
+@mixin padding($top: null, $right: null, $bottom: null, $left: null) {
+    @if $top != null {
+        padding-top: $top;
+    }
+    @if $right != null {
+        padding-right: $right;
+    }
+    @if $bottom != null {
+        padding-bottom: $bottom;
+    }
+    @if $left != null {
+        padding-left: $left;
+    }
+}
+
+// 单独设置 margin
+@mixin margin($top: null, $right: null, $bottom: null, $left: null) {
+    @if $top != null {
+        margin-top: $top;
+    }
+    @if $right != null {
+        margin-right: $right;
+    }
+    @if $bottom != null {
+        margin-bottom: $bottom;
+    }
+    @if $left != null {
+        margin-left: $left;
+    }
+}
+
+// 单独设置 border
+@mixin border($width: null, $style: null, $color: null) {
+    @if $width != null {
+        border-width: $width;
+    }
+    @if $style != null {
+        border-style: $style;
+    }
+    @if $color != null {
+        border-color: $color;
+    }
+}
+
+// 单独设置 outline
+@mixin outline($width: null, $style: null, $color: null) {
+    @if $width != null {
+        outline-width: $width;
+    }
+    @if $style != null {
+        outline-style: $style;
+    }
+    @if $color != null {
+        outline-color: $color;
+    }
+}
+
+// 单独设置 overflow
+@mixin overflow($overflow-x: null, $overflow-y: null) {
+    @if $overflow-x != null {
+        overflow-x: $overflow-x;
+    }
+    @if $overflow-y != null {
+        overflow-y: $overflow-y;
+    }
+}
+
+// 综合盒模型处理
+@mixin box-model(
+    $width: null,
+    $height: null,
+    $margin: null,
+    $padding: null,
+    $padding-top: null,
+    $padding-right: null,
+    $padding-bottom: null,
+    $padding-left: null,
+    $border: null,
+    $border-radius: null,
+    $outline: null,
+    $box-sizing: null
+) {
+    @if $width != null {
+        width: $width;
+    }
+    @if $height != null {
+        height: $height;
+    }
+    @if $margin != null {
+        margin: $margin;
+    }
+    @if $padding != null {
+        padding: $padding;
+    } @else {
+        @include padding($top: $padding-top, $right: $padding-right, $bottom: $padding-bottom, $left: $padding-left);
+    }
+    @if $border != null {
+        border: $border;
+    }
+    @if $border-radius != null {
+        border-radius: $border-radius;
+    }
+    @if $outline != null {
+        outline: $outline;
+    }
+    @if $box-sizing != null {
+        box-sizing: $box-sizing;
+    }
+}
+
+// 定位处理
+@mixin position($position: null, $top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+    @if $position != null {
+        position: $position;
+    }
+    @if $top != null {
+        top: $top;
+    }
+    @if $right != null {
+        right: $right;
+    }
+    @if $bottom != null {
+        bottom: $bottom;
+    }
+    @if $left != null {
+        left: $left;
+    }
+    @if $z-index != null {
+        z-index: $z-index;
+    }
+}
+
+// Flex 容器
+@mixin flex-container($direction: row, $wrap: nowrap, $justify-content: flex-start, $align-items: stretch, $align-content: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    align-content: $align-content;
+}
+// Flex 项
+@mixin flex-item($flex: 1, $align-self: auto) {
+    flex: $flex;
+    align-self: $align-self;
+}
+
+// 网格容器
+@mixin grid-container(
+    $columns: repeat(12, 1fr),
+    // 默认 12 列
+    $gap: 16px,
+    // 列间距
+    $column-gap: $gap,
+    // 列间距（可以单独设置）
+    $row-gap: $gap,
+    // 行间距（可以单独设置）
+    $justify-content: start,
+    // 对齐内容
+    $align-items: stretch,
+    // 对齐项目
+    $align-content: stretch,
+    // 对齐行
+    $auto-rows: auto // 自动行高
+) {
+    display: grid;
+    grid-template-columns: $columns;
+    column-gap: $column-gap;
+    row-gap: $row-gap;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    align-content: $align-content;
+    grid-auto-rows: $auto-rows;
+}
+
+// 网格项目
+@mixin grid-item(
+    $column: auto,
+    // 列起始位置
+    $row: auto,
+    // 行起始位置
+    $column-span: auto,
+    // 列跨度
+    $row-span: auto // 行跨度
+) {
+    grid-column: $column / span $column-span;
+    grid-row: $row / span $row-span;
+}
+
+// 响应式网格容器
+@mixin responsive-grid-container(
+    $columns-xs: repeat(1, 1fr),
+    // 超小屏幕
+    $columns-sm: repeat(2, 1fr),
+    // 小屏幕
+    $columns-md: repeat(4, 1fr),
+    // 中屏幕
+    $columns-lg: repeat(6, 1fr),
+    // 大屏幕
+    $columns-xl: repeat(12, 1fr),
+    // 超大屏幕
+    $gap: 16px
+) {
+    display: grid;
+    grid-template-columns: $columns-xl;
+    gap: $gap;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: $columns-lg;
+    }
+    @media (max-width: 992px) {
+        grid-template-columns: $columns-md;
+    }
+    @media (max-width: 768px) {
+        grid-template-columns: $columns-sm;
+    }
+    @media (max-width: 576px) {
+        grid-template-columns: $columns-xs;
+    }
+}
+
+// 过渡动画
+@mixin transition($properties: null, $duration: null, $timing-function: null) {
+    @if $properties != null {
+        transition-property: $properties;
+    }
+    @if $duration != null {
+        transition-duration: $duration;
+    }
+    @if $timing-function != null {
+        transition-timing-function: $timing-function;
+    }
+}
+
+// 圆角
+@mixin border-radius($radius: null, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0) {
+    @if $radius != null {
+        border-radius: $radius;
+    } @else {
+        border-radius: $top-left $top-right $bottom-right $bottom-left;
+    }
+}
+
+// 盒阴影
+@mixin box-shadow($offset-x: 0, $offset-y: 0, $blur-radius: 0, $spread-radius: 0, $color: rgba(0, 0, 0, 0.5), $inset: false) {
+    box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color;
+    @if $inset {
+        box-shadow: inset $offset-x $offset-y $blur-radius $spread-radius $color;
+    }
+}
+
+// 动画处理
+@mixin animation($name: null, $duration: null, $timing-function: null, $delay: null, $iteration-count: null) {
+    @if $name != null {
+        animation-name: $name;
+    }
+    @if $duration != null {
+        animation-duration: $duration;
+    }
+    @if $timing-function != null {
+        animation-timing-function: $timing-function;
+    }
+    @if $delay != null {
+        animation-delay: $delay;
+    }
+    @if $iteration-count != null {
+        animation-iteration-count: $iteration-count;
+    }
+}
+
+// 渐变背景
+@mixin gradient-background($type: linear, $colors: null, $direction: null) {
+    @if $type == linear {
+        background: linear-gradient($direction, $colors...);
+    } @else if $type == radial {
+        background: radial-gradient($colors...);
+    }
+}
+
+// 单行文本溢出处理
+@mixin text-overflow-ellipsis($overflow: hidden, $text-overflow: ellipsis, $white-space: nowrap) {
+    overflow: $overflow;
+    text-overflow: $text-overflow;
+    white-space: $white-space;
+}
+
+// 多行文本溢出处理
+@mixin text-overflow-multiline($lines: 2, $overflow: hidden, $text-overflow: ellipsis, $display: -webkit-box, $webkit-box-orient: vertical, $webkit-line-clamp: $lines) {
+    overflow: $overflow;
+    text-overflow: $text-overflow;
+    display: $display;
+    -webkit-box-orient: $webkit-box-orient;
+    -webkit-line-clamp: $webkit-line-clamp;
+    word-break: break-word; // 处理单词溢出s
+}
+
+// Display 属性
+@mixin display(
+    $value: block // 默认值为 block，可以设置为 inline、inline-block、flex、grid 等
+) {
+    display: $value;
+}
+
+// Cursor 属性
+@mixin cursor(
+    $value: auto // 默认值为 auto，可以设置为 pointer、crosshair、help 等
+) {
+    cursor: $value;
+}
