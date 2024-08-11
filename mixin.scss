@@ -235,7 +235,7 @@
     @if $border != null {
         border: $border;
     } @else {
-        @include border($border-width: null, $border-style: null, $border-color: null);
+        @include border($border-width, $border-style, $border-color);
     }
     @if $border-radius != null {
         border-radius: $border-radius;
