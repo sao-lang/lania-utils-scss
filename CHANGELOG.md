@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.5...v0.0.6) (2024-08-11)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* update list-style mixin ([de2f3dd](https://github.com/sao-lang/lania-utils-scss/commit/de2f3dde3ef67829c6b30a56acc77b7ef4a42cd9))
+
 ### [0.0.5](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.4...v0.0.5) (2024-08-11)
 
 
