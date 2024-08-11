@@ -36,8 +36,8 @@
 
 // 文本相关属性 Mixin
 @mixin text(
-    $color: null,
     $font-size: null,
+    $color: null,
     $font-weight: null,
     $font-style: null,
     $font-family: null,
@@ -88,10 +88,10 @@
         text-shadow: $text-shadow;
     }
     @if $text-fill != null {
-        -webkit-text-fill-color: $text-fill; // 需要前缀
+        text-fill-color: $text-fill;
     }
     @if $text-stroke != null {
-        -webkit-text-stroke: $text-stroke; // 需要前缀
+        text-stroke: $text-stroke;
     }
 }
 
@@ -290,37 +290,74 @@
     }
 }
 
-// Flex 容器
-@mixin flex-container($direction: row, $wrap: nowrap, $justify-content: flex-start, $align-items: stretch, $align-content: stretch) {
+@mixin flex-container($direction: null, $wrap: null, $justify-content: null, $align-items: null, $align-content: null) {
     display: flex;
-    flex-direction: $direction;
-    flex-wrap: $wrap;
-    justify-content: $justify-content;
-    align-items: $align-items;
-    align-content: $align-content;
-}
-// Flex 项
-@mixin flex-item($flex: 1, $align-self: auto) {
-    flex: $flex;
-    align-self: $align-self;
+    @if $direction != null {
+        flex-direction: $direction;
+    }
+    @if $wrap != null {
+        flex-wrap: $wrap;
+    }
+    @if $justify-content != null {
+        justify-content: $justify-content;
+    }
+    @if $align-items != null {
+        align-items: $align-items;
+    }
+    @if $align-content != null {
+        align-content: $align-content;
+    }
 }
 
-// 网格容器
-@mixin grid-container($columns: repeat(12, 1fr), $gap: 16px, $column-gap: $gap, $row-gap: $gap, $justify-content: start, $align-items: stretch, $align-content: stretch, $auto-rows: auto) {
+@mixin flex-item($flex: null, $align-self: null) {
+    @if $flex != null {
+        flex: $flex;
+    }
+    @if $align-self != null {
+        align-self: $align-self;
+    }
+}
+
+@mixin grid-container($columns: null, $gap: null, $column-gap: null, $row-gap: null, $justify-content: null, $align-items: null, $align-content: null, $auto-rows: null) {
     display: grid;
-    grid-template-columns: $columns;
-    column-gap: $column-gap;
-    row-gap: $row-gap;
-    justify-content: $justify-content;
-    align-items: $align-items;
-    align-content: $align-content;
-    grid-auto-rows: $auto-rows;
+    @if $columns != null {
+        grid-template-columns: $columns;
+    }
+    @if $gap != null {
+        gap: $gap;
+    }
+    @if $column-gap != null {
+        column-gap: $column-gap;
+    }
+    @if $row-gap != null {
+        row-gap: $row-gap;
+    }
+    @if $justify-content != null {
+        justify-content: $justify-content;
+    }
+    @if $align-items != null {
+        align-items: $align-items;
+    }
+    @if $align-content != null {
+        align-content: $align-content;
+    }
+    @if $auto-rows != null {
+        grid-auto-rows: $auto-rows;
+    }
 }
 
-// 网格项目
-@mixin grid-item($column: auto, $row: auto, $column-span: auto, $row-span: auto) {
-    grid-column: $column / span $column-span;
-    grid-row: $row / span $row-span;
+@mixin grid-item($column: null, $row: null, $column-span: null, $row-span: null) {
+    @if $column != null and $column-span != null {
+        grid-column: $column / span $column-span;
+    } @else if $column != null {
+        grid-column: $column;
+    }
+
+    @if $row != null and $row-span != null {
+        grid-row: $row / span $row-span;
+    } @else if $row != null {
+        grid-row: $row;
+    }
 }
 
 // 过渡动画
