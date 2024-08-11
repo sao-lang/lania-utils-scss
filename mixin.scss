@@ -156,6 +156,22 @@
     }
 }
 
+@mixin border-top($width, $style, $color) {
+    border-top: $width $style $color;
+}
+
+@mixin border-right($width, $style, $color) {
+    border-right: $width $style $color;
+}
+
+@mixin border-bottom($width, $style, $color) {
+    border-bottom: $width $style $color;
+}
+
+@mixin border-left($width, $style, $color) {
+    border-left: $width $style $color;
+}
+
 // 单独设置 outline
 @mixin outline($width: null, $style: null, $color: null) {
     @if $width != null {
