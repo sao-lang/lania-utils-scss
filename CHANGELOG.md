@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.7...v0.0.8) (2024-08-11)
+
+
+### ✨ Features | 新功能
+
+* add border-top border-bottom border-left border-right mixin ([34be1cb](https://github.com/sao-lang/lania-utils-scss/commit/34be1cba0c4062c0154e0716512fedeeaa3fb01f))
+
 ### [0.0.7](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.6...v0.0.7) (2024-08-11)
 
 
