@@ -375,10 +375,15 @@
     cursor: $value;
 }
 
-@mixin list-style($type: none, $position: outside, $image: none) {
+@mixin list-style($type: none, $position: null, $image: null) {
     list-style-type: $type;
-    list-style-position: $position;
-    list-style-image: $image;
+
+    @if $position != null {
+        list-style-position: $position;
+    }
+    @if $image != null {
+        list-style-image: $image;
+    }
 }
 
 // 单独设置 overflow
