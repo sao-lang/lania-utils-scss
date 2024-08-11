@@ -410,12 +410,6 @@ $breakpoints: (
     }
 }
 
-@mixin hover($styles) {
-    &:hover {
-        @content;
-    }
-}
-
 @mixin before($content: ' ') {
     &::before {
         content: $content;
@@ -430,14 +424,20 @@ $breakpoints: (
     }
 }
 
-@mixin focus($styles) {
+@mixin focus {
     &:focus {
         @content;
     }
 }
 
-@mixin focus {
-    &:focus {
+@mixin hover {
+    &:hover {
+        @content;
+    }
+}
+
+@mixin active {
+    &:active {
         @content;
     }
 }
