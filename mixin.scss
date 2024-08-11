@@ -37,32 +37,19 @@
 // 文本相关属性 Mixin
 @mixin text(
     $color: null,
-    // 文字颜色
     $font-size: null,
-    // 字体大小
     $font-weight: null,
-    // 字体粗细
     $font-style: null,
-    // 字体样式，例如 italic、normal
     $font-family: null,
-    // 字体系列
     $line-height: null,
-    // 行高
     $text-align: null,
-    // 文本对齐
     $text-decoration: null,
-    // 文本装饰
     $text-transform: null,
-    // 文本变形
     $letter-spacing: null,
-    // 字间距
     $word-spacing: null,
-    // 词间距
     $text-shadow: null,
-    // 文本阴影
     $text-fill: null,
-    // 文字填充（实验性属性）
-    $text-stroke: null // 文字描边（实验性属性）
+    $text-stroke: null
 ) {
     @if $color != null {
         color: $color;
@@ -303,23 +290,7 @@
 }
 
 // 网格容器
-@mixin grid-container(
-    $columns: repeat(12, 1fr),
-    // 默认 12 列
-    $gap: 16px,
-    // 列间距
-    $column-gap: $gap,
-    // 列间距（可以单独设置）
-    $row-gap: $gap,
-    // 行间距（可以单独设置）
-    $justify-content: start,
-    // 对齐内容
-    $align-items: stretch,
-    // 对齐项目
-    $align-content: stretch,
-    // 对齐行
-    $auto-rows: auto // 自动行高
-) {
+@mixin grid-container($columns: repeat(12, 1fr), $gap: 16px, $column-gap: $gap, $row-gap: $gap, $justify-content: start, $align-items: stretch, $align-content: stretch, $auto-rows: auto) {
     display: grid;
     grid-template-columns: $columns;
     column-gap: $column-gap;
@@ -331,15 +302,7 @@
 }
 
 // 网格项目
-@mixin grid-item(
-    $column: auto,
-    // 列起始位置
-    $row: auto,
-    // 行起始位置
-    $column-span: auto,
-    // 列跨度
-    $row-span: auto // 行跨度
-) {
+@mixin grid-item($column: auto, $row: auto, $column-span: auto, $row-span: auto) {
     grid-column: $column / span $column-span;
     grid-row: $row / span $row-span;
 }
@@ -403,17 +366,19 @@
 }
 
 // Display 属性
-@mixin display(
-    $value: block // 默认值为 block，可以设置为 inline、inline-block、flex、grid 等
-) {
+@mixin display($value: block) {
     display: $value;
 }
 
 // Cursor 属性
-@mixin cursor(
-    $value: auto // 默认值为 auto，可以设置为 pointer、crosshair、help 等
-) {
+@mixin cursor($value: auto) {
     cursor: $value;
+}
+
+@mixin list-style($type: none, $position: outside, $image: none) {
+    list-style-type: $type;
+    list-style-position: $position;
+    list-style-image: $image;
 }
 
 // 单独设置 overflow
@@ -537,5 +502,43 @@ $breakpoints: (
         &[#{$attribute}] {
             @content;
         }
+    }
+}
+
+@mixin scrollbar($visible: true, $width: 8px, $color: #ccc, $hover-color: #aaa, $track-color: #f1f1f1) {
+    // 控制滚动条的显示与隐藏
+    @if $visible {
+        // WebKit 浏览器 (Chrome, Safari)
+        ::-webkit-scrollbar {
+            width: $width;
+            height: $width; // 如果需要水平滚动条
+        }
+
+        ::-webkit-scrollbar-track {
+            background: $track-color;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: $color;
+            border-radius: 4px; // 可选：添加圆角
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: $hover-color;
+        }
+
+        // Firefox (控制滚动条宽度和颜色)
+        scrollbar-width: auto;
+        scrollbar-color: $color $track-color;
+    } @else {
+        // 隐藏滚动条
+        ::-webkit-scrollbar {
+            width: 0;
+            height: 0; // 如果需要水平滚动条
+        }
+
+        // Firefox (控制滚动条宽度和颜色)
+        scrollbar-width: none;
+        scrollbar-color: transparent transparent;
     }
 }
