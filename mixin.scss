@@ -182,13 +182,20 @@
     }
 }
 
-// 单独设置 overflow
-@mixin overflow($overflow-x: null, $overflow-y: null) {
-    @if $overflow-x != null {
-        overflow-x: $overflow-x;
+// 圆角
+@mixin border-radius($radius: null, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0) {
+    @if $radius != null {
+        border-radius: $radius;
+    } @else {
+        border-radius: $top-left $top-right $bottom-right $bottom-left;
     }
-    @if $overflow-y != null {
-        overflow-y: $overflow-y;
+}
+
+// 盒阴影
+@mixin box-shadow($offset-x: 0, $offset-y: 0, $blur-radius: 0, $spread-radius: 0, $color: rgba(0, 0, 0, 0.5), $inset: false) {
+    box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color;
+    @if $inset {
+        box-shadow: inset $offset-x $offset-y $blur-radius $spread-radius $color;
     }
 }
 
@@ -196,40 +203,63 @@
 @mixin box-model(
     $width: null,
     $height: null,
-    $margin: null,
     $padding: null,
     $padding-top: null,
     $padding-right: null,
     $padding-bottom: null,
     $padding-left: null,
+    $margin: null,
+    $margin-top: null,
+    $margin-right: null,
+    $margin-bottom: null,
+    $margin-left: null,
     $border: null,
+    $border-width: null,
+    $border-style: null,
+    $border-color: null,
     $border-radius: null,
+    $border-radius-top-left: null,
+    $border-radius-top-right: null,
+    $border-radius-bottom-right: null,
+    $border-radius-bottom-left: null,
     $outline: null,
     $box-sizing: null
 ) {
     @if $width != null {
         width: $width;
     }
+
     @if $height != null {
         height: $height;
     }
+
     @if $margin != null {
-        margin: $margin;
+        padding: $padding;
+    } @else {
+        @include margin($top: $margin-top, $right: $margin-right, $bottom: $margin-bottom, $left: $margin-left);
     }
+
     @if $padding != null {
         padding: $padding;
     } @else {
         @include padding($top: $padding-top, $right: $padding-right, $bottom: $padding-bottom, $left: $padding-left);
     }
+
     @if $border != null {
         border: $border;
+    } @else {
+        @include border($border-width: null, $border-style: null, $border-color: null);
     }
     @if $border-radius != null {
         border-radius: $border-radius;
+    } @else {
+        @include border-radius($border-radius-top-left, $border-radius-top-right, $border-radius-bottom-right, $border-radius-bottom-left);
     }
+
     @if $outline != null {
         outline: $outline;
     }
+
     @if $box-sizing != null {
         box-sizing: $box-sizing;
     }
@@ -314,38 +344,6 @@
     grid-row: $row / span $row-span;
 }
 
-// 响应式网格容器
-@mixin responsive-grid-container(
-    $columns-xs: repeat(1, 1fr),
-    // 超小屏幕
-    $columns-sm: repeat(2, 1fr),
-    // 小屏幕
-    $columns-md: repeat(4, 1fr),
-    // 中屏幕
-    $columns-lg: repeat(6, 1fr),
-    // 大屏幕
-    $columns-xl: repeat(12, 1fr),
-    // 超大屏幕
-    $gap: 16px
-) {
-    display: grid;
-    grid-template-columns: $columns-xl;
-    gap: $gap;
-
-    @media (max-width: 1200px) {
-        grid-template-columns: $columns-lg;
-    }
-    @media (max-width: 992px) {
-        grid-template-columns: $columns-md;
-    }
-    @media (max-width: 768px) {
-        grid-template-columns: $columns-sm;
-    }
-    @media (max-width: 576px) {
-        grid-template-columns: $columns-xs;
-    }
-}
-
 // 过渡动画
 @mixin transition($properties: null, $duration: null, $timing-function: null) {
     @if $properties != null {
@@ -356,23 +354,6 @@
     }
     @if $timing-function != null {
         transition-timing-function: $timing-function;
-    }
-}
-
-// 圆角
-@mixin border-radius($radius: null, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0) {
-    @if $radius != null {
-        border-radius: $radius;
-    } @else {
-        border-radius: $top-left $top-right $bottom-right $bottom-left;
-    }
-}
-
-// 盒阴影
-@mixin box-shadow($offset-x: 0, $offset-y: 0, $blur-radius: 0, $spread-radius: 0, $color: rgba(0, 0, 0, 0.5), $inset: false) {
-    box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color;
-    @if $inset {
-        box-shadow: inset $offset-x $offset-y $blur-radius $spread-radius $color;
     }
 }
 
@@ -433,4 +414,128 @@
     $value: auto // 默认值为 auto，可以设置为 pointer、crosshair、help 等
 ) {
     cursor: $value;
+}
+
+// 单独设置 overflow
+@mixin overflow($overflow-x: null, $overflow-y: null) {
+    @if $overflow-x != null {
+        overflow-x: $overflow-x;
+    }
+    @if $overflow-y != null {
+        overflow-y: $overflow-y;
+    }
+}
+
+// 响应式断点
+$breakpoints: (
+    's': 576px,
+    'm': 768px,
+    'l': 992px,
+    'xl': 1200px,
+);
+
+@mixin respond-to($breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@mixin hover($styles) {
+    &:hover {
+        @content;
+    }
+}
+
+@mixin before($content: ' ') {
+    &::before {
+        content: $content;
+        @content;
+    }
+}
+
+@mixin after($content: ' ') {
+    &::after {
+        content: $content;
+        @content;
+    }
+}
+
+@mixin focus($styles) {
+    &:focus {
+        @content;
+    }
+}
+
+@mixin focus {
+    &:focus {
+        @content;
+    }
+}
+
+@mixin disabled {
+    &:disabled {
+        @content;
+    }
+}
+
+@mixin checked {
+    &:checked {
+        @content;
+    }
+}
+
+@mixin nth-child($n) {
+    &:nth-child(#{$n}) {
+        @content;
+    }
+}
+
+@mixin nth-of-type($n) {
+    &:nth-child(#{$n}) {
+        @content;
+    }
+}
+
+@mixin not($selector) {
+    &:not(#{$selector}) {
+        @content;
+    }
+}
+
+@mixin has-attribute($attribute) {
+    &[#{$attribute}] {
+        @content;
+    }
+}
+
+@mixin attribute-value($attribute, $value) {
+    &[#{$attribute}='#{$value}'] {
+        @content;
+    }
+}
+
+@mixin attribute-begins-with($attribute, $value) {
+    &[#{$attribute}^='#{$value}'] {
+        @content;
+    }
+}
+
+@mixin attribute-ends-with($attribute, $value) {
+    &[#{$attribute}$='#{$value}'] {
+        @content;
+    }
+}
+
+@mixin attribute-contains($attribute, $value) {
+    &[#{$attribute}*='#{$value}'] {
+        @content;
+    }
+}
+
+@mixin multiple-attributes($attributes) {
+    @each $attribute in $attributes {
+        &[#{$attribute}] {
+            @content;
+        }
+    }
 }
