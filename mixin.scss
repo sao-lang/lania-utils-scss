@@ -156,20 +156,52 @@
     }
 }
 
-@mixin border-top($width, $style, $color) {
-    border-top: $width $style $color;
+@mixin border-top($width: null, $style: null, $color: null) {
+    @if $width != null {
+        border-top-width: $width;
+    }
+    @if $style != null {
+        border-top-style: $style;
+    }
+    @if $color != null {
+        border-top-color: $color;
+    }
 }
 
-@mixin border-right($width, $style, $color) {
-    border-right: $width $style $color;
+@mixin border-right($width: null, $style: null, $color: null) {
+    @if $width != null {
+        border-right-width: $width;
+    }
+    @if $style != null {
+        border-right-style: $style;
+    }
+    @if $color != null {
+        border-right-color: $color;
+    }
 }
 
-@mixin border-bottom($width, $style, $color) {
-    border-bottom: $width $style $color;
+@mixin border-bottom($width: null, $style: null, $color: null) {
+    @if $width != null {
+        border-bottom-width: $width;
+    }
+    @if $style != null {
+        border-bottom-style: $style;
+    }
+    @if $color != null {
+        border-bottom-color: $color;
+    }
 }
 
-@mixin border-left($width, $style, $color) {
-    border-left: $width $style $color;
+@mixin border-left($width: null, $style: null, $color: null) {
+    @if $width != null {
+        border-left-width: $width;
+    }
+    @if $style != null {
+        border-left-style: $style;
+    }
+    @if $color != null {
+        border-left-color: $color;
+    }
 }
 
 // 单独设置 outline
@@ -189,16 +221,43 @@
 @mixin border-radius($radius: null, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0) {
     @if $radius != null {
         border-radius: $radius;
-    } @else {
-        border-radius: $top-left $top-right $bottom-right $bottom-left;
+    } @else if $top-left != null {
+        border-radius-top-left: $top-left;
+    } @else if $top-right != null {
+        border-radius-top-right: $top-right;
+    } @else if $bottom-right != null {
+        border-radius-bottom-right: $bottom-right;
+    } @else if $bottom-left != null {
+        border-radius-bottom-left: $bottom-left;
     }
 }
 
-// 盒阴影
-@mixin box-shadow($offset-x: 0, $offset-y: 0, $blur-radius: 0, $spread-radius: 0, $color: rgba(0, 0, 0, 0.5), $inset: false) {
-    box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color;
+@mixin box-shadow($offset-x: null, $offset-y: null, $blur-radius: null, $spread-radius: null, $color: null, $inset: false) {
+    $shadow: '';
+
     @if $inset {
-        box-shadow: inset $offset-x $offset-y $blur-radius $spread-radius $color;
+        $shadow: inset;
+    }
+
+    @if $offset-x != null {
+        $shadow: $shadow + ' ' + $offset-x;
+    }
+    @if $offset-y != null {
+        $shadow: $shadow + ' ' + $offset-y;
+    }
+    @if $blur-radius != null {
+        $shadow: $shadow + ' ' + $blur-radius;
+    }
+    @if $spread-radius != null {
+        $shadow: $shadow + ' ' + $spread-radius;
+    }
+    @if $color != null {
+        $shadow: $shadow + ' ' + $color;
+    }
+
+    // 只在有非空值的情况下应用 box-shadow
+    @if $shadow != '' {
+        box-shadow: $shadow;
     }
 }
 
@@ -256,7 +315,7 @@
     @if $border-radius != null {
         border-radius: $border-radius;
     } @else {
-        @include border-radius($border-radius-top-left, $border-radius-top-right, $border-radius-bottom-right, $border-radius-bottom-left);
+        @include border-radius(null, $border-radius-top-left, $border-radius-top-right, $border-radius-bottom-right, $border-radius-bottom-left);
     }
 
     @if $outline != null {
