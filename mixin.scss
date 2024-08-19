@@ -589,12 +589,16 @@
 }
 
 // 单独设置 overflow
-@mixin overflow($overflow-x: null, $overflow-y: null) {
-    @if $overflow-x != null {
-        overflow-x: $overflow-x;
-    }
-    @if $overflow-y != null {
-        overflow-y: $overflow-y;
+@mixin overflow($overflow: null, $overflow-x: null, $overflow-y: null) {
+    @if $overflow != null {
+        overflow: $overflow;
+    } @else {
+        @if $overflow-x != null {
+            overflow-x: $overflow-x;
+        }
+        @if $overflow-y != null {
+            overflow-y: $overflow-y;
+        }
     }
 }
 
