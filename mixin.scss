@@ -44,6 +44,7 @@
     $line-height: null,
     $text-align: null,
     $text-decoration: null,
+    $text-indent: null,
     $text-transform: null,
     $letter-spacing: null,
     $word-spacing: null,
@@ -56,6 +57,9 @@
     }
     @if $font-size != null {
         font-size: $font-size;
+    }
+    @if $text-indent != null {
+        text-indent: $text-indent;
     }
     @if $font-weight != null {
         font-weight: $font-weight;
@@ -284,6 +288,10 @@
     $border-radius-top-right: null,
     $border-radius-bottom-right: null,
     $border-radius-bottom-left: null,
+    $min-width: null,
+    $max-width: null,
+    $min-height: null,
+    $max-height: null,
     $outline: null,
     $box-sizing: null
 ) {
@@ -325,6 +333,35 @@
     @if $box-sizing != null {
         box-sizing: $box-sizing;
     }
+
+    @if $min-height != null {
+        min-height: $min-height;
+    }
+
+    @if $max-height != null {
+        min-height: $max-height;
+    }
+
+    @if $min-width != null {
+        min-height: $min-width;
+    }
+
+    @if $max-width != null {
+        min-height: $max-width;
+    }
+}
+
+@mixin w-full() {
+    @include box-model($width: 100%);
+}
+@mixin h-full() {
+    @include box-model($height: 100%);
+}
+@mixin w-screen() {
+    @include box-model($width: 100vw);
+}
+@mixin h-screen() {
+    @include box-model($height: 100vh);
 }
 
 // 定位处理
@@ -347,6 +384,22 @@
     @if $z-index != null {
         z-index: $z-index;
     }
+}
+
+@mixin relative($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+    @include position($position: relative, $top, $right, $bottom, $left, $z-index);
+}
+
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+    @include position($position: absolute, $top, $right, $bottom, $left, $z-index);
+}
+
+@mixin fixed($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+    @include position($position: fixed, $top, $right, $bottom, $left, $z-index);
+}
+
+@mixin sticky($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
+    @include position($position: sticky, $top, $right, $bottom, $left, $z-index);
 }
 
 @mixin flex-container($direction: null, $wrap: null, $justify-content: null, $align-items: null, $align-content: null) {
@@ -482,9 +535,44 @@
     display: $value;
 }
 
-// Cursor 属性
+@mixin block() {
+    @include display();
+}
+
+@mixin inline() {
+    @include display(inline);
+}
+
+@mixin inline-block() {
+    @include display(inline-block);
+}
+
+@mixin flex() {
+    @include display(flex);
+}
+
+@mixin inline-flex() {
+    @include display(inline-flex);
+}
+
+@mixin grid() {
+    @include display(grid);
+}
+
+@mixin inline-grid() {
+    @include display(inline-grid);
+}
+
 @mixin cursor($value: auto) {
     cursor: $value;
+}
+
+@mixin cursor-pointer() {
+    @include cursor(pointer);
+}
+
+@mixin cursor-not-allowed() {
+    @include cursor(not-allowed);
 }
 
 @mixin list-style($type: none, $position: null, $image: null) {
