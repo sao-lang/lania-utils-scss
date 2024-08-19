@@ -235,36 +235,38 @@
         border-radius-bottom-left: $bottom-left;
     }
 }
+@mixin box-shadow($shadows: null, $offset-x: null, $offset-y: null, $blur-radius: null, $spread-radius: null, $color: null, $inset: false) {
+    @if $shadows != null {
+        box-shadow: $shadows;
+    } @else {
+        $shadow: '';
 
-@mixin box-shadow($offset-x: null, $offset-y: null, $blur-radius: null, $spread-radius: null, $color: null, $inset: false) {
-    $shadow: '';
+        @if $inset {
+            $shadow: inset;
+        }
 
-    @if $inset {
-        $shadow: inset;
-    }
+        @if $offset-x != null {
+            $shadow: $shadow + ' ' + $offset-x;
+        }
+        @if $offset-y != null {
+            $shadow: $shadow + ' ' + $offset-y;
+        }
+        @if $blur-radius != null {
+            $shadow: $shadow + ' ' + $blur-radius;
+        }
+        @if $spread-radius != null {
+            $shadow: $shadow + ' ' + $spread-radius;
+        }
+        @if $color != null {
+            $shadow: $shadow + ' ' + $color;
+        }
 
-    @if $offset-x != null {
-        $shadow: $shadow + ' ' + $offset-x;
-    }
-    @if $offset-y != null {
-        $shadow: $shadow + ' ' + $offset-y;
-    }
-    @if $blur-radius != null {
-        $shadow: $shadow + ' ' + $blur-radius;
-    }
-    @if $spread-radius != null {
-        $shadow: $shadow + ' ' + $spread-radius;
-    }
-    @if $color != null {
-        $shadow: $shadow + ' ' + $color;
-    }
-
-    // 只在有非空值的情况下应用 box-shadow
-    @if $shadow != '' {
-        box-shadow: $shadow;
+        // 只在有非空值的情况下应用 box-shadow
+        @if $shadow != '' {
+            box-shadow: $shadow;
+        }
     }
 }
-
 // 综合盒模型处理
 @mixin box-model(
     $width: null,
@@ -746,4 +748,8 @@ $breakpoints: (
         scrollbar-width: none;
         scrollbar-color: transparent transparent;
     }
+}
+
+@mixin transform($transforms...) {
+    transform: $transforms;
 }
