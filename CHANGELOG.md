@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.13...v0.0.14) (2024-08-20)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* udpate relative fixed sticky mixin ([48bee26](https://github.com/sao-lang/lania-utils-scss/commit/48bee26f00c2d255e7af0f0d4cf1aadf39bf5c3b))
+
 ### [0.0.13](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.12...v0.0.13) (2024-08-19)
 
 
