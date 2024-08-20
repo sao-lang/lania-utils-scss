@@ -389,19 +389,19 @@
 }
 
 @mixin relative($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
-    @include position($position: relative, $top, $right, $bottom, $left, $z-index);
+    @include position($position: relative, $top: $top, $right: $right, $bottom: $bottom, $left: $left, $z-index: $z-index);
 }
 
 @mixin absolute($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
-    @include position($position: absolute, $top, $right, $bottom, $left, $z-index);
+    @include position($position: absolute, $top: $top, $right: $right, $bottom: $bottom, $left: $left, $z-index: $z-index);
 }
 
 @mixin fixed($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
-    @include position($position: fixed, $top, $right, $bottom, $left, $z-index);
+    @include position($position: fixed, $top: $top, $right: $right, $bottom: $bottom, $left: $left, $z-index: $z-index);
 }
 
 @mixin sticky($top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
-    @include position($position: sticky, $top, $right, $bottom, $left, $z-index);
+    @include position($position: sticky, $top: $top, $right: $right, $bottom: $bottom, $left: $left, $z-index: $z-index);
 }
 
 @mixin flex-container($direction: null, $wrap: null, $justify-content: null, $align-items: null, $align-content: null) {
