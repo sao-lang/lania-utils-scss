@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.14...v0.0.15) (2024-08-21)
+
+
+### ♻️ Code Refactoring | 代码重构
+
+* update overflow mixin ([ff93bff](https://github.com/sao-lang/lania-utils-scss/commit/ff93bffb9b081acc92d12705bbad13443da1ce99))
+
 ### [0.0.14](https://github.com/sao-lang/lania-utils-scss/compare/v0.0.13...v0.0.14) (2024-08-20)
 
 
