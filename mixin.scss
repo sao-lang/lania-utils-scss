@@ -235,6 +235,7 @@
         border-radius-bottom-left: $bottom-left;
     }
 }
+
 @mixin box-shadow($shadows: null, $offset-x: null, $offset-y: null, $blur-radius: null, $spread-radius: null, $color: null, $inset: false) {
     @if $shadows != null {
         box-shadow: $shadows;
@@ -267,6 +268,7 @@
         }
     }
 }
+
 // 综合盒模型处理
 @mixin box-model(
     $width: null,
@@ -353,19 +355,6 @@
     }
 }
 
-@mixin w-full() {
-    @include box-model($width: 100%);
-}
-@mixin h-full() {
-    @include box-model($height: 100%);
-}
-@mixin w-screen() {
-    @include box-model($width: 100vw);
-}
-@mixin h-screen() {
-    @include box-model($height: 100vh);
-}
-
 // 定位处理
 @mixin position($position: null, $top: null, $right: null, $bottom: null, $left: null, $z-index: null) {
     @if $position != null {
@@ -432,13 +421,26 @@
     }
 }
 
-@mixin grid-container($columns: null, $gap: null, $column-gap: null, $row-gap: null, $justify-content: null, $align-items: null, $align-content: null, $auto-rows: null) {
+@mixin grid-container(
+    $columns: null,
+    $rows: null,
+    $column-gap: null,
+    $row-gap: null,
+    $justify-content: null,
+    $align-content: null,
+    $place-content: null,
+    $justify-items: null,
+    $align-items: null,
+    $place-items: null,
+    $auto-flow: null,
+    $template-areas: null
+) {
     display: grid;
     @if $columns != null {
         grid-template-columns: $columns;
     }
-    @if $gap != null {
-        gap: $gap;
+    @if $rows != null {
+        grid-template-rows: $rows;
     }
     @if $column-gap != null {
         column-gap: $column-gap;
@@ -446,31 +448,62 @@
     @if $row-gap != null {
         row-gap: $row-gap;
     }
+    @if $place-content != null {
+        place-content: $place-content;
+    }
     @if $justify-content != null {
         justify-content: $justify-content;
-    }
-    @if $align-items != null {
-        align-items: $align-items;
     }
     @if $align-content != null {
         align-content: $align-content;
     }
-    @if $auto-rows != null {
-        grid-auto-rows: $auto-rows;
+    @if $place-items != null {
+        place-items: $place-items;
+    }
+    @if $align-items != null {
+        align-items: $align-items;
+    }
+    @if $justify-items != null {
+        justify-items: $justify-items;
+    }
+    @if $auto-flow != null {
+        grid-auto-flow: $auto-flow;
+    }
+    @if $template-areas != null {
+        grid-template-areas: $template-areas;
     }
 }
 
-@mixin grid-item($column: null, $row: null, $column-span: null, $row-span: null) {
-    @if $column != null and $column-span != null {
-        grid-column: $column / span $column-span;
-    } @else if $column != null {
-        grid-column: $column;
+@mixin grid-item($column-start: null, $column-end: null, $row-start: null, $row-end: null, $column: null, $row: null, $area: null, $justify-self: null, $align-self: null, $place-self: null) {
+    @if $column-start != null {
+        grid-column-start: $column-start;
     }
-
-    @if $row != null and $row-span != null {
-        grid-row: $row / span $row-span;
-    } @else if $row != null {
+    @if $column-end != null {
+        grid-column-end: $column-end;
+    }
+    @if $row-start != null {
+        grid-row-start: $row-start;
+    }
+    @if $row-end != null {
+        grid-row-end: $row-end;
+    }
+    @if $column != null {
+        grid-column: $justify-content;
+    }
+    @if $row != null {
         grid-row: $row;
+    }
+    @if $area != null {
+        grid-area: $area;
+    }
+    @if $justify-self != null {
+        justify-self: $justify-self;
+    }
+    @if $align-self != null {
+        align-self: $align-self;
+    }
+    @if $place-self != null {
+        place-self: $place-self;
     }
 }
 
@@ -515,15 +548,7 @@
     }
 }
 
-// 单行文本溢出处理
-@mixin text-overflow-ellipsis($overflow: hidden, $text-overflow: ellipsis, $white-space: nowrap) {
-    overflow: $overflow;
-    text-overflow: $text-overflow;
-    white-space: $white-space;
-}
-
-// 多行文本溢出处理
-@mixin text-overflow-multiline($lines: 2, $overflow: hidden, $text-overflow: ellipsis, $display: -webkit-box, $webkit-box-orient: vertical, $webkit-line-clamp: $lines) {
+@mixin multi-line-ellipsis($lines: 2, $overflow: hidden, $text-overflow: ellipsis, $display: -webkit-box, $webkit-box-orient: vertical, $webkit-line-clamp: $lines) {
     overflow: $overflow;
     text-overflow: $text-overflow;
     display: $display;
@@ -537,44 +562,8 @@
     display: $value;
 }
 
-@mixin block() {
-    @include display();
-}
-
-@mixin inline() {
-    @include display(inline);
-}
-
-@mixin inline-block() {
-    @include display(inline-block);
-}
-
-@mixin flex() {
-    @include display(flex);
-}
-
-@mixin inline-flex() {
-    @include display(inline-flex);
-}
-
-@mixin grid() {
-    @include display(grid);
-}
-
-@mixin inline-grid() {
-    @include display(inline-grid);
-}
-
 @mixin cursor($value: auto) {
     cursor: $value;
-}
-
-@mixin cursor-pointer() {
-    @include cursor(pointer);
-}
-
-@mixin cursor-not-allowed() {
-    @include cursor(not-allowed);
 }
 
 @mixin list-style($type: none, $position: null, $image: null) {
